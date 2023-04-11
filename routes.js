@@ -25,3 +25,26 @@ const list = [
 routes.get("/", (req, res) => {
   res.status(200).json(list);
 });
+
+routes.get("/:id", (req, res) => {
+  const id = req.params.id;
+  for (let i = 0; i < list.length; i++) {
+    if (id == list[i].id) {
+      res.status(200).json(list[i]);
+      return;
+    }
+  }
+  res.status(404).send("Not Found");
+});
+
+routes.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  for (let i = 0; i < list.length; i++) {
+    if (id == list[i].id) {
+      list.splice(i, 1);
+      res.status(200).send("OK");
+      return;
+    }
+  }
+  res.status(404).send("Not Found");
+});
